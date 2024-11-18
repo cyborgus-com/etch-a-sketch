@@ -61,6 +61,18 @@ function createEtchASketch(dims) {
 }
 
 function colorThisSquare(event) {
-    event.target.style.backgroundColor = 'gray';
-    event.target.style.borderColor = 'gray';
+    let R = getRandomInt(0, 256);
+    let G = getRandomInt(0, 256);
+    let B = getRandomInt(0, 256);
+    let color = "rgb("+R+","+G+","+B+")";
+    event.target.style.backgroundColor = color;
+    event.target.style.borderColor = color;
 }
+
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); 
+    // The maximum is exclusive and the minimum is inclusive
+  }
+  
