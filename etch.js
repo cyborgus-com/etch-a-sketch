@@ -19,20 +19,48 @@ dimensionsButton.addEventListener("click", () => {
         alert("Only positive dimensions between 1 and 100 can be selected. please try again.");
     }
     else {
+        // insert function below to delete all existing divs:
+        container.innerHTML = "";
         dimensions = tempDim;
         createEtchASketch(dimensions);
     }
 })
 
 // Create a container div
+const container = document.createElement("div");
+container.setAttribute("style", 
+    "width: 960px; height: 960px; display: flex; flex-direction: column; border: 1px solid black; flex-wrap: wrap;");
+document.body.appendChild(container);
 
+// use event delegation by attaching a single event listener to the 
+// `container` and handling the event for dynamically added `.divSquare` elements.
+
+container.addEventListener("mouseover", (event) => {
+    if (event.target.classList.contains("divSquare")) {
+        colorThisSquare(event);
+    }
+});
+
+// Color function (called by the hover function above)
 
 // Populate the divs using input from the button
 function createEtchASketch(dims) {
-    // Run a nested loop over columns and rows using `dims` as input
-    // Create column divs
+    // calculate small square dimensions - to be changed since border takes up space, too
+    let dimSquare = Math.floor(960/dims)-2;
+
+    // loop over the container, and add divs
+    for (i=0; i<(dims*dims); i++) {
+        let divSquare = document.createElement("div");
+        divSquare.setAttribute("style", "border: 1px solid WhiteSmoke;" +
+            "width: " + dimSquare + "px;" +
+            "height: " + dimSquare + "px;"
+            );
+        divSquare.className = "divSquare";
+        container.appendChild(divSquare);       
+    }
 }
 
-// Listeners to on mouse hover over the divs 
-
-// Color function (called by the hover function above)
+function colorThisSquare(event) {
+    event.target.style.backgroundColor = 'gray';
+    event.target.style.borderColor = 'gray';
+}
