@@ -67,6 +67,12 @@ function colorThisSquare(event) {
     let color = "rgb("+R+","+G+","+B+")";
     event.target.style.backgroundColor = color;
     event.target.style.borderColor = color;
+
+    let currentOpacity = parseFloat(event.target.style.opacity) || 0;
+    if (currentOpacity < 1) {
+        event.target.style.opacity = (currentOpacity + 0.1).toString();
+    }
+
 }
 
 function getRandomInt(min, max) {
